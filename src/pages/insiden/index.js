@@ -10,7 +10,7 @@ import axios from 'axios';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { useUser } from '@/context/userContext';
-import ProgressTracker from '@/components/progressTracker';
+import { ProgressTracker } from '@/components/progressTracker';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 
 export default function ReportInsidentForm() {

@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import axios from 'axios';
-import ProgressTracker from '@/components/progressTracker';
+import { ProgressTracker } from '@/components/progressTracker';
 import { useUser } from '@/context/userContext';
 import { Badge } from '@/components/ui/badge';
 
@@ -195,16 +195,16 @@ export default function InsidenBahaya() {
                                             <Label htmlFor="mahasiswa">Mahasiswa</Label>
                                         </div>
                                         <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="dosen" id="dosen" />
+                                            <Label htmlFor="dosen">Dosen</Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
                                             <RadioGroupItem value="karyawan" id="karyawan" />
                                             <Label htmlFor="karyawan">Karyawan</Label>
                                         </div>
                                         <div className="flex items-center space-x-2">
-                                            <RadioGroupItem value="tamu" id="tamu" />
-                                            <Label htmlFor="tamu">Tamu</Label>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                            <RadioGroupItem value="lainnya" id="lainnya" />
-                                            <Label htmlFor="lainnya">Lainnya</Label>
+                                            <RadioGroupItem value="tendik" id="tendik" />
+                                            <Label htmlFor="tendik">Tendik</Label>
                                         </div>
                                     </RadioGroup>
                                 </div>
@@ -249,7 +249,7 @@ export default function InsidenBahaya() {
                                     />
                                 </div>
                                 <div>
-                                    <Label htmlFor="lokasi_insiden">Lokasi Insiden</Label>
+                                    <Label htmlFor="lokasi_insiden">Lokasi Potensi Bahaya</Label>
                                     <Input
                                         id="lokasi_insiden"
                                         name="lokasi_insiden"

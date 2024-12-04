@@ -78,30 +78,32 @@ export default function Login() {
     };
 
     return (
-        <Card className='w-full m-auto my-10 sm:w-1/2 lg:w-1/3'>
-            <Head>
-                <title>Login</title>
-            </Head>
-            <CardHeader className="flex flex-col items-center justify-center text-center">
-                <Image src='/logo_undip.png' width={100} height={100} alt='Pelaporan K3 FT' className='my-1' />
-                <CardDescription className="w-2/3 text-md font-medium">Selamat Datang di Sistem informasi Pelaporan K3 FT Undip</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <form onSubmit={handleLogin} className='flex flex-col gap-6'>
-                    <div className='flex flex-col gap-2'>
-                        <Label htmlFor='id_number'>Nomor Identitas</Label>
-                        <Input type="id_number" id="id_number" value={id_number} onChange={(e) => setIdNumber(e.target.value)} placeholder="Identity Number" />
-                    </div>
-                    <div className='flex flex-col gap-2'>
-                        <Label htmlFor='password'>Password</Label>
-                        <Input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-                    </div>
-                    <div className='flex flex-col gap-2'>
-                        {error && <p className='text-sm text-red-500'>{error}</p>}
-                        <Button type="submit">Login</Button>
-                    </div>
-                </form>
-            </CardContent>
-        </Card>
+        <div className='flex flex-col items-center justify-center h-screen' >
+            <Card className='w-full m-auto my-10 sm:w-1/2 lg:w-1/3'>
+                <Head>
+                    <title>Login</title>
+                </Head>
+                <CardHeader className="flex flex-col items-center justify-center text-center">
+                    <Image src='/logo_undip.png' width={100} height={100} alt='Pelaporan K3 FT' className='my-1' />
+                    <CardDescription className="w-2/3 font-medium text-md">Selamat Datang di Sistem informasi Pelaporan K3 FT Undip</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form onSubmit={handleLogin} className='flex flex-col gap-6'>
+                        <div className='flex flex-col gap-2'>
+                            <Label htmlFor='id_number'>Nomor Identitas</Label>
+                            <Input type="id_number" id="id_number" value={id_number} onChange={(e) => setIdNumber(e.target.value)} placeholder="Identity Number" />
+                        </div>
+                        <div className='flex flex-col gap-2'>
+                            <Label htmlFor='password'>Password</Label>
+                            <Input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                        </div>
+                        <div className='flex flex-col gap-2'>
+                            {error && <p className='text-sm text-red-500'>{error}</p>}
+                            <Button type="submit">Login</Button>
+                        </div>
+                    </form>
+                </CardContent>
+            </Card>
+        </div>
     );
 }

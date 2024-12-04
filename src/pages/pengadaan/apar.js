@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import UserLayout from '@/layout/userLayout';
-import ProgressTracker from '@/components/progressTracker';
+import { ProgressTracker2 } from '@/components/progressTracker';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -307,10 +307,9 @@ export default function Apar() {
                                     <th className="px-4 py-2 border border-gray-300">Departemen</th>
                                     <th className="px-4 py-2 border border-gray-300">Ruang</th>
                                     <th className="px-4 py-2 border border-gray-300">Lantai</th>
-                                    <th className="px-4 py-2 border border-gray-300">Ruangan</th>
+                                    <th className="px-4 py-2 border border-gray-300">Jenis</th>
                                     <th className="px-4 py-2 border border-gray-300">Status</th>
                                     <th className="px-4 py-2 border border-gray-300">Aksi</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -342,7 +341,7 @@ export default function Apar() {
                                             {report.jenis}
                                         </td>
                                         <td className="px-4 py-2 border border-gray-300">
-                                            <ProgressTracker currentStatus={report.status} />
+                                            <ProgressTracker2 currentStatus={report.status} />
                                         </td>
                                         <td className="px-4 py-2 border border-gray-300">
                                             <Button onClick={() => router.push(`/report/apar-edit?id=${report.id}`)}>Edit</Button>

@@ -107,7 +107,6 @@ export default function Apar() {
                                             <SelectItem value="Pengajuan">Pengajuan</SelectItem>
                                             <SelectItem value="PIC K3">PIC K3</SelectItem>
                                             <SelectItem value="Verifikasi">Verifikasi</SelectItem>
-                                            <SelectItem value="Proses Penanganan">Proses Penanganan</SelectItem>
                                             <SelectItem value="Selesai">Selesai</SelectItem>
                                         </SelectContent>
                                     </Select>

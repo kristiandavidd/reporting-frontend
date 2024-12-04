@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProgressTracker from "@/components/progressTracker";
+import { ProgressTracker2 } from "@/components/progressTracker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -243,7 +243,7 @@ export default function ReportP3KForm() {
                                             <td className="p-2 border">{report.penanggungjawab}</td>
                                             <td className="p-2 border">{report.lantai}</td>
                                             <td className="p-2 border">{report.departemen}</td>
-                                            <ProgressTracker currentStatus={report.status} />
+                                            <ProgressTracker2 currentStatus={report.status} />
                                             <td className="p-2 border">
                                                 <td className="flex justify-center px-4 py-2">
                                                     <Button onClick={() => router.push(`/report/p3k-edit?id=${report.id}`)}>Edit</Button>

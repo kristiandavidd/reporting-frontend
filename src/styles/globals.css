@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #000000;
   --foreground: #171717;
+}
+
+body {
+  background: linear-gradient(to bottom, #f3f4f6, #bae6fd);
 }
 
 @layer base {

@@ -66,14 +66,13 @@ export default function UserLayout({ children, head, className = '' }) {
                 <title>{head}</title>
             </Head>
 
-            <div className='w-full min-h-screen p-12 bg-gray-100'>
+            <div className="w-full min-h-screen p-12 bg-transparent">
                 <div className='flex items-center w-full px-6 py-2 mb-8 bg-white rounded-lg'>
 
                     <div className='flex items-center justify-between w-full gap-10 p-2'>
                         <Link href={"/dashboard"} className="flex items-center gap-4 ">
 
-                            <Image alt={"logo"} src={"/logo_undip.png"} width={40} height={40} />
-                            <p className="text-2xl font-bold">K3 FT</p>
+                            <Image alt={"logao"} src={"/logo_k3.png"} width={200} height={200} />
                         </Link>
                         {/* Dropdown Menu for Pelaporan Pengadaan */}
                         <DropdownMenu>
