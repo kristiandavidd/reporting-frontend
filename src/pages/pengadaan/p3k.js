@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ProgressTracker from "@/components/progressTracker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -221,36 +222,38 @@ export default function ReportP3KForm() {
 
                 {/* Tab Tracking */}
                 <TabsContent value="tracking">
-                    <h1 className="mb-6 text-xl font-bold">Tracking Report P3K</h1>
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-center border border-gray-300 table-auto">
-                            <thead className="bg-gray-200">
-                                <tr>
-                                    <th className="p-2 border">ID</th>
-                                    <th className="p-2 border">Penanggung Jawab</th>
-                                    <th className="p-2 border">Lantai</th>
-                                    <th className="p-2 border">Departemen</th>
-                                    <th className="p-2 border">Status</th>
-                                    <th className="p-2 border">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {reportData.map((report, index) => (
-                                    <tr key={index}>
-                                        <td className="p-2 border">{report.id}</td>
-                                        <td className="p-2 border">{report.penanggungjawab}</td>
-                                        <td className="p-2 border">{report.lantai}</td>
-                                        <td className="p-2 border">{report.departemen}</td>
-                                        <td className="p-2 border"><Badge>{report.status}</Badge></td>
-                                        <td className="p-2 border">
-                                            <td className="flex justify-center px-4 py-2">
-                                                <Button onClick={() => router.push(`/report/p3k-edit?id=${report.id}`)}>Edit</Button>
-                                            </td>
-                                        </td>
+                    <div className='p-6 bg-white rounded-lg'>
+                        <h1 className="mb-6 text-xl font-bold">Laporan Terkini</h1>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-center border border-gray-300 table-auto">
+                                <thead className="bg-gray-200">
+                                    <tr>
+                                        <th className="p-2 border">ID</th>
+                                        <th className="p-2 border">Penanggung Jawab</th>
+                                        <th className="p-2 border">Lantai</th>
+                                        <th className="p-2 border">Departemen</th>
+                                        <th className="p-2 border">Status</th>
+                                        <th className="p-2 border">Aksi</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {reportData.map((report, index) => (
+                                        <tr key={index}>
+                                            <td className="p-2 border">{report.id}</td>
+                                            <td className="p-2 border">{report.penanggungjawab}</td>
+                                            <td className="p-2 border">{report.lantai}</td>
+                                            <td className="p-2 border">{report.departemen}</td>
+                                            <ProgressTracker currentStatus={report.status} />
+                                            <td className="p-2 border">
+                                                <td className="flex justify-center px-4 py-2">
+                                                    <Button onClick={() => router.push(`/report/p3k-edit?id=${report.id}`)}>Edit</Button>
+                                                </td>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </TabsContent>
             </Tabs>

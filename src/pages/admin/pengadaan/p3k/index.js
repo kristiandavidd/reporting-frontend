@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
+import Link from "next/link";
 
 export default function P3k() {
     const [reports, setReports] = useState([]);
@@ -52,7 +53,8 @@ export default function P3k() {
 
     return (
         <AdminLayout>
-            <div className="overflow-x-auto">
+            <div className="p-6 bg-white rounded-lg">
+                <h2 className="mb-4 text-xl font-bold">Laporan Terkini</h2>
                 <table className="w-full text-center border border-gray-300 table-auto">
                     <thead className="bg-gray-200">
                         <tr>
@@ -86,7 +88,10 @@ export default function P3k() {
                                     <td className="p-2 border">{report.penanggungjawab}</td>
                                     <td className="p-2 border">{report.lantai}</td>
                                     <td className="p-2 border">{report.departemen}</td>
-                                    <td className="flex justify-center px-4 py-2 ">
+                                    <td className="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300">
+                                        <Link href={`/admin/pengadaan/p3k/${report.id}`} className="px-4 py-1 text-white rounded-lg bg-primary ">
+                                            Detail
+                                        </Link>
                                         <Select
                                             value={report.status}
                                             onValueChange={(value) => handleStatusChange(report.id, value)}

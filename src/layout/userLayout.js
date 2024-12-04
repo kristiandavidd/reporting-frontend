@@ -67,12 +67,13 @@ export default function UserLayout({ children, head, className = '' }) {
             </Head>
 
             <div className='w-full min-h-screen p-12 bg-gray-100'>
-                <div className='flex items-center justify-between px-6 py-2 mb-8 bg-white rounded-lg'>
+                <div className='flex items-center w-full px-6 py-2 mb-8 bg-white rounded-lg'>
 
-                    <div className='flex gap-10 p-2'>
-                        <Link href={"/dashboard"}>
+                    <div className='flex items-center justify-between w-full gap-10 p-2'>
+                        <Link href={"/dashboard"} className="flex items-center gap-4 ">
 
                             <Image alt={"logo"} src={"/logo_undip.png"} width={40} height={40} />
+                            <p className="text-2xl font-bold">K3 FT</p>
                         </Link>
                         {/* Dropdown Menu for Pelaporan Pengadaan */}
                         <DropdownMenu>
@@ -120,10 +121,10 @@ export default function UserLayout({ children, head, className = '' }) {
                             <IconAlertTriangle strokeWidth={1.4} />
                             Pelaporan Potensi Bahaya
                         </Link>
+                        <Button onClick={handleLogout}>Logout</Button>
                     </div>
 
                     {/* Logout Button */}
-                    <Button onClick={handleLogout}>Logout</Button>
                 </div>
 
                 {children}

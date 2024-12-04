@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import axios from 'axios';
 
 export default function AparEdit() {
@@ -139,17 +140,23 @@ export default function AparEdit() {
 
                     {/* Jenis */}
                     <div>
-                        <Label htmlFor="jenis">Jenis</Label>
-                        <Input
-                            type="text"
-                            id="jenis"
-                            name="jenis"
+                        <Label htmlFor="jenis">Jenis APAR</Label>
+                        <Select
                             value={formData.jenis}
-                            className="mt-2"
-                            onChange={handleInputChange}
-                            placeholder="Masukkan jenis APAR"
-                            required
-                        />
+                            name='jenis'
+                            id='jenis'
+                            onValueChange={(value) => setFormData((prev) => ({ ...prev, jenis: value }))}
+                        >
+                            <SelectTrigger className="w-full mt-2">
+                                <SelectValue placeholder="Masukkan jenis APAR" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="Powder">Powder</SelectItem>
+                                <SelectItem value="HFC">HFC</SelectItem>
+                                <SelectItem value="Foam">Foam</SelectItem>
+                                <SelectItem value="CO2">CO2</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
 
                     {/* Ukuran */}
@@ -179,34 +186,39 @@ export default function AparEdit() {
                     </div>
                 </div>
 
-                <div className="flex justify-between mt-4 text-center">
-                    {/* Tanggal Beli */}
+                <div className="flex justify-around mt-4 text-center">
                     <div>
                         <Label htmlFor="tgl_beli">Tanggal Beli</Label>
-                        <Calendar
-                            mode="single"
-                            selected={formData.tgl_beli ? new Date(formData.tgl_beli) : undefined}
-                            onSelect={(date) => handleDateChange('tgl_beli', date)}
+                        <Input
+                            id="tgl_beli"
+                            name="tgl_beli"
+                            className="mt-2"
+                            type="date"
+                            value={new Date(formData.tgl_beli).toISOString().split('T')[0]}
+                            onChange={handleInputChange}
                         />
                     </div>
-
-                    {/* Tanggal Isi */}
                     <div>
                         <Label htmlFor="tgl_isi">Tanggal Isi</Label>
-                        <Calendar
-                            mode="single"
-                            selected={formData.tgl_isi ? new Date(formData.tgl_isi) : undefined}
-                            onSelect={(date) => handleDateChange('tgl_isi', date)}
+                        <Input
+                            id="tgl_isi"
+                            name="tgl_isi"
+                            className="mt-2"
+                            type="date"
+                            value={new Date(formData.tgl_isi).toISOString().split('T')[0]}
+                            onChange={handleInputChange}
                         />
                     </div>
-
-                    {/* Tanggal Exp */}
                     <div>
-                        <Label htmlFor="tgl_exp">Tanggal Exp</Label>
-                        <Calendar
-                            mode="single"
-                            selected={formData.tgl_exp ? new Date(formData.tgl_exp) : undefined}
-                            onSelect={(date) => handleDateChange('tgl_exp', date)}
+                        {console.log(formData.tgl_exp)}
+                        <Label htmlFor="tgl_exp">Tanggal Kadaluarsa</Label>
+                        <Input
+                            id="tgl_exp"
+                            name="tgl_exp"
+                            className="mt-2"
+                            type="date"
+                            value={new Date(formData.tgl_exp).toISOString().split('T')[0]}
+                            onChange={handleInputChange}
                         />
                     </div>
                 </div>

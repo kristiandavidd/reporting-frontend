@@ -84,7 +84,7 @@ export default function Login() {
             </Head>
             <CardHeader className="flex flex-col items-center justify-center text-center">
                 <Image src='/logo_undip.png' width={100} height={100} alt='Pelaporan K3 FT' className='my-1' />
-                <CardDescription>Login to your account</CardDescription>
+                <CardDescription className="w-2/3 text-md font-medium">Selamat Datang di Sistem informasi Pelaporan K3 FT Undip</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleLogin} className='flex flex-col gap-6'>

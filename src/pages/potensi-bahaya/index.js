@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import axios from 'axios';
+import ProgressTracker from '@/components/progressTracker';
 import { useUser } from '@/context/userContext';
 import { Badge } from '@/components/ui/badge';
 
@@ -141,178 +142,192 @@ export default function InsidenBahaya() {
                     <form onSubmit={handleSubmit} className="p-6 bg-white rounded-lg shadow-md">
                         <h1 className="mb-6 text-xl font-bold">Form Laporan Potensi Bahaya</h1>
                         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                            <div>
-                                <Label htmlFor="nama_pelapor">Nama Pelapor</Label>
-                                <Input
-                                    id="nama_pelapor"
-                                    name="nama_pelapor"
-                                    type="text"
-                                    value={user ? user.name : ""}
-                                    disabled
-                                    className="mt-2"
-                                    onChange={handleInputChange}
-                                    placeholder="Masukkan nama pelapor"
-                                />
+                            <div className='flex flex-col gap-4'>
+                                <h4 className='font-semibold text-md'>Data Diri Pelapor</h4>
+                                <div>
+                                    <Label htmlFor="nama_pelapor">Nama Pelapor</Label>
+                                    <Input
+                                        id="nama_pelapor"
+                                        name="nama_pelapor"
+                                        type="text"
+                                        value={user ? user.name : ""}
+                                        disabled
+                                        className="mt-2"
+                                        onChange={handleInputChange}
+                                        placeholder="Masukkan nama pelapor"
+                                    />
+                                </div>
+                                <div>
+                                    <Label className="mt-0" htmlFor="id_number">Nomor Identitas</Label>
+                                    <Input
+                                        id="id_number"
+                                        name="id_number"
+                                        type="text"
+                                        value={user ? user.id_number : ""}
+                                        disabled
+                                        className="mt-2"
+                                        onChange={handleInputChange}
+                                        placeholder="Masukkan Nomor Identitas"
+                                    />
+                                </div>
+
+                                <div>
+                                    <Label htmlFor="no_telp">Nomor Telepon</Label>
+                                    <Input
+                                        id="no_telp"
+                                        name="no_telp"
+                                        type="text"
+                                        className="mt-2"
+                                        value={formData.no_telp}
+                                        onChange={handleInputChange}
+                                        placeholder="Masukkan nomor telepon"
+                                    />
+                                </div>
+                                <div>
+                                    <Label>Kategori</Label>
+                                    <RadioGroup
+                                        className="mt-2"
+                                        value={formData.kategori}
+                                        onValueChange={(value) => setFormData({ ...formData, kategori: value })}
+                                    >
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="mahasiswa" id="mahasiswa" />
+                                            <Label htmlFor="mahasiswa">Mahasiswa</Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="karyawan" id="karyawan" />
+                                            <Label htmlFor="karyawan">Karyawan</Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="tamu" id="tamu" />
+                                            <Label htmlFor="tamu">Tamu</Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="lainnya" id="lainnya" />
+                                            <Label htmlFor="lainnya">Lainnya</Label>
+                                        </div>
+                                    </RadioGroup>
+                                </div>
                             </div>
-                            <div>
-                                <Label className="mt-0" htmlFor="id_number">Nomor Identitas</Label>
-                                <Input
-                                    id="id_number"
-                                    name="id_number"
-                                    type="text"
-                                    value={user ? user.id_number : ""}
-                                    disabled
-                                    className="mt-2"
-                                    onChange={handleInputChange}
-                                    placeholder="Masukkan Nomor Identitas"
-                                />
-                            </div>
-                            <div>
-                                <Label htmlFor="no_telp">Nomor Telepon</Label>
-                                <Input
-                                    id="no_telp"
-                                    name="no_telp"
-                                    type="text"
-                                    className="mt-2"
-                                    value={formData.no_telp}
-                                    onChange={handleInputChange}
-                                    placeholder="Masukkan nomor telepon"
-                                />
-                            </div>
-                            <div>
-                                <Label htmlFor="waktu_kejadian">Waktu Kejadian</Label>
-                                <Input
-                                    id="waktu_kejadian"
-                                    name="waktu_kejadian"
-                                    className="mt-2"
-                                    type="datetime-local"
-                                    value={formData.waktu_kejadian}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div>
-                                <Label>Kategori</Label>
-                                <RadioGroup
-                                    className="mt-2"
-                                    value={formData.kategori}
-                                    onValueChange={(value) => setFormData({ ...formData, kategori: value })}
-                                >
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="karyawan" id="karyawan" />
-                                        <Label htmlFor="karyawan">Karyawan</Label>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="tamu" id="tamu" />
-                                        <Label htmlFor="tamu">Tamu</Label>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="lainnya" id="lainnya" />
-                                        <Label htmlFor="lainnya">Lainnya</Label>
-                                    </div>
-                                </RadioGroup>
-                            </div>
-                            <div>
-                                <Label htmlFor="institusi">Institusi yang dikunjungi</Label>
-                                <Input
-                                    id="institusi"
-                                    name="institusi"
-                                    type="text"
-                                    className="mt-2"
-                                    value={formData.institusi}
-                                    onChange={handleInputChange}
-                                    placeholder="Masukkan institusi yang dikunjungi"
-                                />
-                            </div>
-                            <div>
-                                <Label htmlFor="tujuan">Tujuan</Label>
-                                <Textarea
-                                    id="tujuan"
-                                    name="tujuan"
-                                    className="mt-2"
-                                    value={formData.tujuan}
-                                    onChange={handleInputChange}
-                                    placeholder="Masukkan tujuan"
-                                />
-                            </div>
-                            <div>
-                                <Label htmlFor="lokasi_insiden">Lokasi Insiden</Label>
-                                <Input
-                                    id="lokasi_insiden"
-                                    name="lokasi_insiden"
-                                    type="text"
-                                    className="mt-2"
-                                    value={formData.lokasi_insiden}
-                                    onChange={handleInputChange}
-                                    placeholder="Masukkan lokasi insiden"
-                                />
-                            </div>
-                            <div>
-                                <Label htmlFor="potensi_bahaya">Potensi bahaya</Label>
-                                <RadioGroup
-                                    id="potensi_bahaya"
-                                    defaultValue=""
-                                    name="potensi_bahaya"
-                                    className="mt-2"
-                                    value={formData.potensi_bahaya}
-                                    onValueChange={(value) => setFormData({ ...formData, potensi_bahaya: value })}
-                                >
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="fisik" id="fisik" />
-                                        <Label htmlFor="fisik">Fisik</Label>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="kimiawi" id="kimiawi" />
-                                        <Label htmlFor="kimiawi">Kimiawi</Label>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="biologis" id="biologis" />
-                                        <Label htmlFor="biologis">Biologis</Label>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="ergonomis" id="ergonomis" />
-                                        <Label htmlFor="ergonomis">Ergonomis</Label>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="psikologis" id="psikologis" />
-                                        <Label htmlFor="psikologis">Psikologis</Label>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="lainnya" id="lainnya2" />
-                                        <Label htmlFor="lainnya2">Lainnya</Label>
-                                    </div>
-                                </RadioGroup>
-                            </div>
-                            <div>
-                                <Label htmlFor="resiko_bahaya">Resiko Bahaya</Label>
-                                <Textarea
-                                    className="mt-2"
-                                    id="resiko_bahaya"
-                                    name="resiko_bahaya"
-                                    value={formData.resiko_bahaya}
-                                    onChange={handleInputChange}
-                                    placeholder="Masukkan resiko bahaya"
-                                />
-                            </div>
-                            <div>
-                                <Label htmlFor="perbaikan">Usulan perbaikan</Label>
-                                <Textarea
-                                    id="perbaikan"
-                                    name="perbaikan"
-                                    className="mt-2"
-                                    value={formData.perbaikan}
-                                    onChange={handleInputChange}
-                                    placeholder="Masukkan usulan perbaikan"
-                                />
-                            </div>
-                            <div>
-                                <Label htmlFor="bukti_foto">Upload Bukti Foto</Label>
-                                <Input
-                                    id="bukti_foto"
-                                    name="bukti_foto"
-                                    type="file"
-                                    className="mt-2"
-                                    onChange={handleFileChange}
-                                />
+                            <div className='flex flex-col gap-4'>
+                                <h4 className='font-semibold text-md'>Deskripsi Kejadian</h4>
+
+
+                                <div>
+                                    <Label htmlFor="waktu_kejadian">Waktu Kejadian</Label>
+                                    <Input
+                                        id="waktu_kejadian"
+                                        name="waktu_kejadian"
+                                        className="mt-2"
+                                        type="datetime-local"
+                                        value={formData.waktu_kejadian}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+
+                                <div>
+                                    <Label htmlFor="institusi">Institusi yang dikunjungi</Label>
+                                    <Input
+                                        id="institusi"
+                                        name="institusi"
+                                        type="text"
+                                        className="mt-2"
+                                        value={formData.institusi}
+                                        onChange={handleInputChange}
+                                        placeholder="Masukkan institusi yang dikunjungi"
+                                    />
+                                </div>
+                                <div>
+                                    <Label htmlFor="tujuan">Tujuan</Label>
+                                    <Textarea
+                                        id="tujuan"
+                                        name="tujuan"
+                                        className="mt-2"
+                                        value={formData.tujuan}
+                                        onChange={handleInputChange}
+                                        placeholder="Masukkan tujuan"
+                                    />
+                                </div>
+                                <div>
+                                    <Label htmlFor="lokasi_insiden">Lokasi Insiden</Label>
+                                    <Input
+                                        id="lokasi_insiden"
+                                        name="lokasi_insiden"
+                                        type="text"
+                                        className="mt-2"
+                                        value={formData.lokasi_insiden}
+                                        onChange={handleInputChange}
+                                        placeholder="Masukkan lokasi insiden"
+                                    />
+                                </div>
+                                <div>
+                                    <Label htmlFor="potensi_bahaya">Potensi bahaya</Label>
+                                    <RadioGroup
+                                        id="potensi_bahaya"
+                                        defaultValue=""
+                                        name="potensi_bahaya"
+                                        className="mt-2"
+                                        value={formData.potensi_bahaya}
+                                        onValueChange={(value) => setFormData({ ...formData, potensi_bahaya: value })}
+                                    >
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="fisik" id="fisik" />
+                                            <Label htmlFor="fisik">Fisik</Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="kimiawi" id="kimiawi" />
+                                            <Label htmlFor="kimiawi">Kimiawi</Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="biologis" id="biologis" />
+                                            <Label htmlFor="biologis">Biologis</Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="ergonomis" id="ergonomis" />
+                                            <Label htmlFor="ergonomis">Ergonomis</Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="psikologis" id="psikologis" />
+                                            <Label htmlFor="psikologis">Psikologis</Label>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <RadioGroupItem value="lainnya" id="lainnya2" />
+                                            <Label htmlFor="lainnya2">Lainnya</Label>
+                                        </div>
+                                    </RadioGroup>
+                                </div>
+                                <div>
+                                    <Label htmlFor="resiko_bahaya">Resiko Bahaya</Label>
+                                    <Textarea
+                                        className="mt-2"
+                                        id="resiko_bahaya"
+                                        name="resiko_bahaya"
+                                        value={formData.resiko_bahaya}
+                                        onChange={handleInputChange}
+                                        placeholder="Masukkan resiko bahaya"
+                                    />
+                                </div>
+                                <div>
+                                    <Label htmlFor="perbaikan">Usulan perbaikan</Label>
+                                    <Textarea
+                                        id="perbaikan"
+                                        name="perbaikan"
+                                        className="mt-2"
+                                        value={formData.perbaikan}
+                                        onChange={handleInputChange}
+                                        placeholder="Masukkan usulan perbaikan"
+                                    />
+                                </div>
+                                <div>
+                                    <Label htmlFor="bukti_foto">Upload Bukti Foto</Label>
+                                    <Input
+                                        id="bukti_foto"
+                                        name="bukti_foto"
+                                        type="file"
+                                        className="mt-2"
+                                        onChange={handleFileChange}
+                                    />
+                                </div>
                             </div>
                         </div>
                         <div className="flex justify-center w-full mt-6 ">
@@ -322,8 +337,8 @@ export default function InsidenBahaya() {
                 </TabsContent>
                 {/* Tab Tracking */}
                 <TabsContent value="tracking">
-                    <div>
-                        <h2 className="mb-4 text-xl font-bold">Submitted Reports</h2>
+                    <div className='p-6 bg-white rounded-lg'>
+                        <h2 className="mb-4 text-xl font-bold">Laporan Terkini</h2>
                         <table className="w-full text-center border border-collapse border-gray-200 table-auto">
                             <thead>
                                 <tr className="bg-gray-100">
@@ -365,7 +380,7 @@ export default function InsidenBahaya() {
                                             {report.resiko_bahaya}
                                         </td>
                                         <td className="px-4 py-2 border border-gray-300">
-                                            <Badge>{report.status}</Badge>
+                                            <ProgressTracker currentStatus={report.status} />
                                         </td>
                                     </tr>
                                 ))}

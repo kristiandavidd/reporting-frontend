@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import UserLayout from '@/layout/userLayout';
+import ProgressTracker from '@/components/progressTracker';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calendar } from '@/components/ui/calendar';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { format } from 'date-fns';
 import axios from 'axios';
@@ -201,19 +203,24 @@ export default function Apar() {
                                 />
                             </div>
 
-                            {/* Jenis */}
                             <div>
-                                <Label htmlFor="jenis">Jenis</Label>
-                                <Input
-                                    type="text"
-                                    id="jenis"
-                                    name="jenis"
+                                <Label htmlFor="jenis">Jenis APAR</Label>
+                                <Select
                                     value={formData.jenis}
-                                    className="mt-2"
-                                    onChange={handleInputChange}
-                                    placeholder="Masukkan jenis APAR"
-                                    required
-                                />
+                                    name='jenis'
+                                    id='jenis'
+                                    onValueChange={(value) => setFormData((prev) => ({ ...prev, jenis: value }))}
+                                >
+                                    <SelectTrigger className="w-full mt-2">
+                                        <SelectValue placeholder="Masukkan jenis APAR" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="Powder">Powder</SelectItem>
+                                        <SelectItem value="HFC">HFC</SelectItem>
+                                        <SelectItem value="Foam">Foam</SelectItem>
+                                        <SelectItem value="CO2">CO2</SelectItem>
+                                    </SelectContent>
+                                </Select>
                             </div>
 
                             {/* Ukuran */}
@@ -245,34 +252,38 @@ export default function Apar() {
                             </div>
                         </div>
 
-                        <div className="flex justify-between mt-4 text-center">
-                            {/* Tanggal Beli */}
+                        <div className="flex justify-around mt-4 text-center">
                             <div>
                                 <Label htmlFor="tgl_beli">Tanggal Beli</Label>
-                                <Calendar
-                                    mode="single"
-                                    selected={formData.tgl_beli ? new Date(formData.tgl_beli) : undefined}
-                                    onSelect={(date) => handleDateChange('tgl_beli', date)}
+                                <Input
+                                    id="tgl_beli"
+                                    name="tgl_beli"
+                                    className="mt-2"
+                                    type="date"
+                                    value={formData.tgl_beli}
+                                    onChange={handleInputChange}
                                 />
                             </div>
-
-                            {/* Tanggal Isi */}
                             <div>
                                 <Label htmlFor="tgl_isi">Tanggal Isi</Label>
-                                <Calendar
-                                    mode="single"
-                                    selected={formData.tgl_isi ? new Date(formData.tgl_isi) : undefined}
-                                    onSelect={(date) => handleDateChange('tgl_isi', date)}
+                                <Input
+                                    id="tgl_isi"
+                                    name="tgl_isi"
+                                    className="mt-2"
+                                    type="date"
+                                    value={formData.tgl_isi}
+                                    onChange={handleInputChange}
                                 />
                             </div>
-
-                            {/* Tanggal Exp */}
                             <div>
-                                <Label htmlFor="tgl_exp">Tanggal Exp</Label>
-                                <Calendar
-                                    mode="single"
-                                    selected={formData.tgl_exp ? new Date(formData.tgl_exp) : undefined}
-                                    onSelect={(date) => handleDateChange('tgl_exp', date)}
+                                <Label htmlFor="tgl_exp">Tanggal Kadaluarsa</Label>
+                                <Input
+                                    id="tgl_exp"
+                                    name="tgl_exp"
+                                    className="mt-2"
+                                    type="date"
+                                    value={formData.tgl_exp}
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
@@ -286,8 +297,8 @@ export default function Apar() {
 
                 {/* Tab Tracking */}
                 <TabsContent value="tracking">
-                    <div>
-                        <h2 className="mb-4 text-xl font-bold">Submitted Reports</h2>
+                    <div className='p-6 bg-white rounded-lg'>
+                        <h2 className="mb-4 text-xl font-bold">Laporan Terkini</h2>
                         <table className="w-full text-center border border-collapse border-gray-200 table-auto">
                             <thead>
                                 <tr className="bg-gray-100">
@@ -331,7 +342,7 @@ export default function Apar() {
                                             {report.jenis}
                                         </td>
                                         <td className="px-4 py-2 border border-gray-300">
-                                            <Badge>{report.status}</Badge>
+                                            <ProgressTracker currentStatus={report.status} />
                                         </td>
                                         <td className="px-4 py-2 border border-gray-300">
                                             <Button onClick={() => router.push(`/report/apar-edit?id=${report.id}`)}>Edit</Button>

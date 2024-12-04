@@ -3,8 +3,10 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import axios from "axios"
 import React, { useState, useEffect } from 'react'
+import Link from "next/link"
+import { Button } from "@/components/ui/button";
 
-export default function Insiden() {
+export default function Apar() {
     const [reports, setReports] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -12,7 +14,7 @@ export default function Insiden() {
         const fetchReports = async () => {
             try {
                 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-                const response = await axios.get(`${apiUrl}/tracking/incident`);
+                const response = await axios.get(`${apiUrl}/tracking/apar`);
                 console.log("Response data:", response.data);
                 setReports(response.data.data || []); // Pastikan data diinisialisasi sebagai array
             } catch (error) {
@@ -30,7 +32,7 @@ export default function Insiden() {
     const handleStatusChange = async (reportId, newStatus) => {
         try {
             const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-            await axios.put(`${apiUrl}/verification/incident/${reportId}`, {
+            await axios.put(`${apiUrl}/verification/apar/${reportId}`, {
                 status: newStatus,
             });
             // Update local state with the new status
@@ -48,18 +50,18 @@ export default function Insiden() {
     return (
         <AdminLayout>
             <div className="p-6 bg-white rounded-lg">
-                <h2 className="mb-4 text-xl font-bold">Submitted Reports</h2>
+                <h2 className="mb-4 text-xl font-bold">Laporan Terkini</h2>
                 <table className="w-full text-center border border-collapse border-gray-200 table-auto">
                     <thead>
                         <tr className="bg-gray-100">
                             <th className="px-4 py-2 border border-gray-300">No</th>
-                            <th className="px-4 py-2 border border-gray-300">Waktu Kejadian</th>
-                            <th className="px-4 py-2 border border-gray-300">Pelapor</th>
-                            <th className="px-4 py-2 border border-gray-300">Kategori</th>
-                            <th className="px-4 py-2 border border-gray-300">Lokasi</th>
-                            <th className="px-4 py-2 border border-gray-300">Resiko Bahaya</th>
-                            <th className="px-4 py-2 border border-gray-300">Tingkat Keparahan</th>
+                            <th className="px-4 py-2 border border-gray-300">Waktu Pelaporan</th>
+                            <th className="px-4 py-2 border border-gray-300">Departemen</th>
+                            <th className="px-4 py-2 border border-gray-300">Ruang</th>
+                            <th className="px-4 py-2 border border-gray-300">Lantai</th>
+                            <th className="px-4 py-2 border border-gray-300">Ruangan</th>
                             <th className="px-4 py-2 border border-gray-300">Status</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -69,36 +71,36 @@ export default function Insiden() {
                                     {index + 1}
                                 </td>
                                 <td className="px-4 py-2 border border-gray-300">
-                                    {new Date(report.waktu_kejadian).toLocaleDateString("id-ID", {
+                                    {new Date(report.created_at).toLocaleDateString("id-ID", {
                                         day: '2-digit',
                                         month: '2-digit',
                                         year: 'numeric'
-                                    })} Pukul {new Date(report.waktu_kejadian).toLocaleTimeString("id-ID", {
+                                    })} Pukul {new Date(report.created_at).toLocaleTimeString("id-ID", {
                                         hour: '2-digit',
                                         minute: '2-digit'
                                     })}
                                 </td>
                                 <td className="px-4 py-2 border border-gray-300">
-                                    {report.nama_pelapor}
+                                    {report.dept}
                                 </td>
                                 <td className="px-4 py-2 border border-gray-300">
-                                    {report.kategori}
+                                    {report.ruang}
                                 </td>
                                 <td className="px-4 py-2 border border-gray-300">
-                                    {report.lokasi_insiden}
+                                    {report.lantai}
                                 </td>
                                 <td className="px-4 py-2 border border-gray-300">
-                                    {report.jenis_insiden}
+                                    {report.jenis}
                                 </td>
-                                <td className="px-4 py-2 border border-gray-300">
-                                    {report.tingkat_keparahan ? ["Ringan", "Sedang", "Berat", "Fatal"][report.tingkat_keparahan] : "Ringan"}
-                                </td>
-                                <td className="flex justify-center px-4 py-2 border border-gray-300">
+                                <td className="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300">
+                                    <Link href={`/admin/pengadaan/apar/${report.id}`} className="px-4 py-1 text-white rounded-lg bg-primary ">
+                                        Detail
+                                    </Link>
                                     <Select
                                         value={report.status}
                                         onValueChange={(value) => handleStatusChange(report.id, value)}
                                     >
-                                        <SelectTrigger className="w-40">
+                                        <SelectTrigger className="w-48">
                                             <SelectValue placeholder={report.status} />
                                         </SelectTrigger>
                                         <SelectContent>
